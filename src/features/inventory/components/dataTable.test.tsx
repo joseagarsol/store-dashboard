@@ -54,4 +54,36 @@ describe('DataTable Component', () => {
     expect(screen.getByText('Monitor Test')).toBeInTheDocument();
     expect(screen.queryByText('Teclado Mecánico')).not.toBeInTheDocument();
   });
+
+  it('Should render paginate data correcly', async () => {
+    const user = userEvent.setup();
+
+    const manyProducts = Array.from({ length: 15 }, (_, i) => ({
+      id: i,
+      title: `Producto ${i}`,
+      price: 100,
+      category: 'test',
+      image: 'image.jpg',
+      description: 'desc',
+      rating: { rate: 5, count: 10 },
+    }));
+
+    render(<DataTable columns={columns} data={manyProducts} />);
+
+    expect(screen.getByText('Producto 1')).toBeInTheDocument();
+    expect(screen.getByText('Producto 9')).toBeInTheDocument();
+    expect(screen.queryByText('Producto 11')).not.toBeInTheDocument();
+
+    const nextButton = screen.getByRole('button', { name: 'Siguiente' });
+    const prevButton = screen.getByRole('button', { name: 'Anterior' });
+
+    expect(prevButton).toBeDisabled();
+
+    await user.click(nextButton);
+
+    expect(screen.queryByText('Producto 1')).not.toBeInTheDocument();
+    expect(screen.getByText('Producto 11')).toBeInTheDocument();
+
+    expect(prevButton).not.toBeDisabled();
+  });
 });

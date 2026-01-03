@@ -10,21 +10,14 @@ function App() {
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <div className="flex flex-col items-center gap-2">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
-          <p className="animate-pulse text-muted-foreground">Cargando...</p>
+          <div className="h-8 w-8 rounded-full border-4 border-primary border-t-transparent">
+            Cargando...
+          </div>
         </div>
       </div>
     );
 
-  if (isError)
-    return (
-      <div className="flex h-screen w-full items-center justify-center">
-        <div className="rounded-lg border border-red-200 bg-red-50 p-6 text-center">
-          <p className="font-bold">Ha ocurrido un error</p>
-          <p className="text-sm">{error?.message}</p>
-        </div>
-      </div>
-    );
+  if (isError) return <>Error: {error instanceof Error ? error.message : 'Error desconocido'}</>;
 
   return (
     <div className="p-10">

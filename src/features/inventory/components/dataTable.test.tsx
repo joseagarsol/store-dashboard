@@ -3,6 +3,13 @@ import { describe, it, expect } from 'vitest';
 import { DataTable } from './DataTable';
 import { columns } from './columns';
 import userEvent from '@testing-library/user-event';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import type { ReactNode } from 'react';
+
+const createWrapper = (ui: ReactNode) => {
+  const queryClient = new QueryClient();
+  return render(<QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>);
+};
 
 const mockData = [
   {
@@ -27,7 +34,7 @@ const mockData = [
 
 describe('DataTable Component', () => {
   it('Should render the table with the correct data and format', () => {
-    render(<DataTable columns={columns} data={mockData} />);
+    createWrapper(<DataTable columns={columns} data={mockData} />);
 
     expect(screen.getByText('Producto')).toBeInTheDocument();
     expect(screen.getByText('Monitor Test')).toBeInTheDocument();
@@ -35,14 +42,14 @@ describe('DataTable Component', () => {
   });
 
   it('Should display a fallback message when there is no data', () => {
-    render(<DataTable columns={columns} data={[]} />);
+    createWrapper(<DataTable columns={columns} data={[]} />);
 
     expect(screen.getByText('No hay resultados.')).toBeInTheDocument();
   });
 
   it('Filters products by title when user types', async () => {
     const user = userEvent.setup();
-    render(<DataTable columns={columns} data={mockData} />);
+    createWrapper(<DataTable columns={columns} data={mockData} />);
 
     const searchInput = screen.getByPlaceholderText('Filtrar productos...');
 
@@ -68,7 +75,7 @@ describe('DataTable Component', () => {
       rating: { rate: 5, count: 10 },
     }));
 
-    render(<DataTable columns={columns} data={manyProducts} />);
+    createWrapper(<DataTable columns={columns} data={manyProducts} />);
 
     expect(screen.getByText('Producto 1')).toBeInTheDocument();
     expect(screen.getByText('Producto 9')).toBeInTheDocument();

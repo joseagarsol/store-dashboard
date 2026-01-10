@@ -1,5 +1,6 @@
 import type { ColumnDef } from '@tanstack/react-table';
 import type { Product } from '../types/index';
+import { ProductAction } from './ProductAction';
 
 export const columns: ColumnDef<Product>[] = [
   {
@@ -29,6 +30,12 @@ export const columns: ColumnDef<Product>[] = [
       }).format(amount);
 
       return <div className="font-bold">{formatted}</div>;
+    },
+  },
+  {
+    id: 'actions',
+    cell: ({ row }) => {
+      return <ProductAction product={row.original} />;
     },
   },
 ];

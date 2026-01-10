@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
-import { CreateProductForm } from './CreateProductForm';
+import { ProductForm } from './ProductForm';
 import { render, screen, waitFor } from '@testing-library/react';
 
 describe('CreateProductForm', () => {
@@ -9,7 +9,7 @@ describe('CreateProductForm', () => {
 
     const onSubmitMock = vi.fn();
 
-    render(<CreateProductForm onSuccess={onSubmitMock} />);
+    render(<ProductForm onSuccess={onSubmitMock} />);
 
     const submitBtn = screen.getByRole('button', { name: 'Guardar' });
     await user.click(submitBtn);
@@ -24,7 +24,7 @@ describe('CreateProductForm', () => {
     const user = userEvent.setup();
     const onSubmitMock = vi.fn();
 
-    render(<CreateProductForm onSuccess={onSubmitMock} />);
+    render(<ProductForm onSuccess={onSubmitMock} />);
 
     const titleInput = screen.getByLabelText(/nombre del producto/i);
     await user.type(titleInput, 'Test Product');

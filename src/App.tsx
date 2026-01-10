@@ -12,7 +12,7 @@ import {
   SheetTitle,
   SheetDescription,
 } from './components/ui/sheet';
-import { CreateProductForm } from './features/inventory/components/CreateProductForm';
+import { ProductForm } from './features/inventory/components/ProductForm';
 import { useCreateProduct } from './features/inventory/hooks/useCreateProduct';
 
 function App() {
@@ -67,7 +67,7 @@ function App() {
             </SheetHeader>
 
             <div className="mt-8">
-              <CreateProductForm onSuccess={handleCreateProduct} isLoading={isCreating} />
+              <ProductForm onSuccess={handleCreateProduct} isLoading={isCreating} />
             </div>
           </SheetContent>
         </Sheet>

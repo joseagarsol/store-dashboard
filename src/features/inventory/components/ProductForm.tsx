@@ -22,12 +22,13 @@ type ProductFormValues = z.infer<typeof formSchema>;
 interface CreateProductFormProps {
   onSuccess: (data: ProductFormValues) => void;
   isLoading?: boolean;
+  defaultValues?: ProductFormValues;
 }
 
-export function CreateProductForm({ onSuccess, isLoading }: CreateProductFormProps) {
+export function ProductForm({ onSuccess, isLoading, defaultValues }: CreateProductFormProps) {
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(formSchema) as Resolver<ProductFormValues>,
-    defaultValues: {
+    defaultValues: defaultValues || {
       title: '',
       price: 0,
     },

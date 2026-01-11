@@ -46,8 +46,8 @@ function App() {
   if (isError) return <>Error: {error instanceof Error ? error.message : 'Error desconocido'}</>;
 
   return (
-    <div className="container mx-auto py-10">
-      <header className="mb-8 flex items-center justify-between">
+    <div className="container mx-auto px-4 py-10 sm:px-6 lg:px-8">
+      <header className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Inventario</h1>
           <p className="text-muted-foreground">Gestiona tu catálogo ({data?.length} items)</p>

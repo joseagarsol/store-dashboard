@@ -1,73 +1,92 @@
-# React + TypeScript + Vite
+# Store Dashboard 📦
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Dashboard profesional para la gestión de inventario, desarrollado con un stack moderno de React y enfocado en escalabilidad, tipado estricto (TypeScript) y una experiencia de usuario pulida. Utiliza [FakeStoreAPI](https://fakestoreapi.com/) como backend de demostración.
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/React-18+-61DAFB?logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-Strict-3178C6?logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-Bundler-646CFF?logo=vite&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-Styling-06B6D4?logo=tailwindcss&logoColor=white)
+![TanStack Query](https://img.shields.io/badge/TanStack_Query-State-FF4154?logo=react-query&logoColor=white)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Características Principales
 
-## React Compiler
+- **Gestión de Inventario (CRUD):** Crear, leer, actualizar y eliminar productos.
+- **Tabla de Datos Avanzada:** Implementada con `@tanstack/react-table`. Incluye paginación y filtrado por nombre en tiempo real.
+- **Formularios Robustos:** Gestión de estado con `react-hook-form` y validación de esquemas con `zod`.
+- **Diseño Responsivo:** Interfaz adaptativa (Móvil/Tablet/Escritorio) construida con **Tailwind CSS** y componentes de **Shadcn/ui**.
+- **Gestión de Estado Servidor:** Sincronización eficiente de datos, caché y revalidación con **TanStack Query v5**.
+- **Feedback Visual:** Notificaciones toast (alerts) y estados de carga (skeletons/spinners) para mejorar la UX.
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+## 🛠️ Stack Tecnológico
 
-## Expanding the ESLint configuration
+- **Core:** React 19, TypeScript (Strict Mode), Vite.
+- **Estilos:** Tailwind CSS v3, Shadcn/ui (Radix UI primitives).
+- **Estado & Datos:** TanStack Query v5.
+- **Formularios:** React Hook Form + Zod.
+- **Testing:** Vitest, React Testing Library, JSDOM.
+- **Calidad de Código:** ESLint, Prettier.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📂 Estructura del Proyecto
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+El proyecto sigue una **Arquitectura Basada en Features**, organizando el código por dominio de negocio en lugar de por tipo de archivo técnico.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```text
+src/
+├── features/               # Lógica específica del dominio
+│   └── inventory/          # Módulo de Inventario
+│       ├── api/            # Peticiones HTTP (fetch nativo)
+│       ├── components/     # UI específica (DataTable, Forms)
+│       ├── hooks/          # Custom hooks (useProducts, etc.)
+│       └── types/          # Definiciones TypeScript
+├── components/
+│   ├── ui/                 # Componentes reutilizables (Shadcn/ui)
+│   └── layout/             # Layouts globales
+├── lib/                    # Utilidades (cn, formatters)
+└── test/                   # Configuración de tests
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## ⚡ Instalación y Uso
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
+1.  **Clonar el repositorio:**
+    ```bash
+    git clone <tu-repositorio>
+    cd store-dashboard
+    ```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+2.  **Instalar dependencias:**
+    ```bash
+    npm install
+    ```
+
+3.  **Iniciar servidor de desarrollo:**
+    ```bash
+    npm run dev
+    ```
+    La aplicación estará disponible en `http://localhost:5173`.
+
+## 🧪 Testing
+
+El proyecto utiliza **Vitest** para pruebas unitarias y de integración.
+
+- **Ejecutar tests:**
+  ```bash
+  npm run test
+  ```
+- **Ejecutar tests una sola vez (CI):**
+  ```bash
+  npm run test:run
+  ```
+
+## 📦 Build para Producción
+
+Para generar los archivos estáticos optimizados para producción:
+
+```bash
+npm run build
 ```
+
+Los archivos se generarán en la carpeta `dist/`.
+
+## 📄 Licencia
+
+Este proyecto es para fines educativos y de demostración.
